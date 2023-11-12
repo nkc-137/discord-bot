@@ -1,0 +1,8 @@
+Welcome to the phasmo-update chatbot help guide!
+
+Here are list of commands you can use:
+1. $help - Display documentation
+2. franku - Pay homage to our franku
+3. yamete - Yamete Ya Yamete ah!!!
+4. prankd - You just got prankd bro!
+5. noobsai - Our noob ram sai

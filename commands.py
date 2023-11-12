@@ -1,0 +1,7 @@
+hello = '$hello'
+franku = 'franku'
+yamete = 'yamete'
+prankd = 'prankd'
+noobsai = 'noobsai'
+noshit = 'noshit'
+help = '$help'
