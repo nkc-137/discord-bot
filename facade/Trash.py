@@ -1,7 +1,9 @@
 import Trash
-from clients.FilthyFrankClient import FilthyFrankClient
+from bots.FilthyFrankBot import FilthyFrankClient
 
 
+# Just used for testing
+# TODO: Remove this class
 class DiscordChannel:
     intents = discord.Intents.default()
     intents.message_content = True

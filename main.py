@@ -1,15 +1,12 @@
 import discord
 import os
 
-from discord.ext import commands
 from dotenv import load_dotenv
-import json
 from googleapiclient import discovery
-from flask import Flask
-from threading import Thread
 import asyncio
-from clients.FilthyFrankClient import FilthyFrankClient
-from clients.PhasmoClient import PhasmoClient
+from bots.FilthyFrankBot import FilthyFrankClient
+from bots.PhasmoBot import PhasmoClient
+from bots.ReminderBot import ReminderClient
 from utils.utils import get_asset_dir_path
 load_dotenv()
 
@@ -23,29 +20,10 @@ DISCORD_TOKEN = os.getenv('TOKEN')
 path_json = get_asset_dir_path() + "google.json"
 
 intents = discord.Intents.all()
-# intents.message_content = True
-# intents.reactions = True
-# intents.members = True
-# intents.guilds = True
 client = discord.Client(intents=intents)
 filthy_frank_client = FilthyFrankClient(intents=intents)
 phasmo_client = PhasmoClient(intents, CHANNEL_ID, CHANNEL_NAME)
-
-
-# app = Flask('')
-
-# @app.route('/')
-# def main():
-#     return "Your Bot Is Ready"
-
-# def run():
-#     app.run(host="0.0.0.0", port=8000)
-#
-#
-# def keep_alive():
-#     server = Thread(target=run)
-#     server.start()
-
+reminder_client = ReminderClient(intents=intents)
 
 # with open(path_json, 'r') as f:
 #     service = json.load(f)
@@ -94,15 +72,13 @@ phasmo_client = PhasmoClient(intents, CHANNEL_ID, CHANNEL_NAME)
 
 
 async def main():
-    filthy_frank_client = FilthyFrankClient(intents=intents)
-    phasmo_client = PhasmoClient(intents, CHANNEL_ID, CHANNEL_NAME)
-
     loop = asyncio.get_event_loop()
-
 
     task1 = loop.create_task(filthy_frank_client.start(DISCORD_TOKEN))
     task2 = loop.create_task(phasmo_client.start(DISCORD_TOKEN))
+    task3 = loop.create_task(reminder_client.start(DISCORD_TOKEN))
+    task4 = loop.create_task(reminder_client.send_message_task())
 
-    await asyncio.gather(task1, task2)
+    await asyncio.gather(task1, task2, task3, task4)
 
 asyncio.run(main())
